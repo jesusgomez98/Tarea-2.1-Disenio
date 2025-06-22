@@ -32,6 +32,36 @@ app.get('/productos/:id', (req, res) => {
   res.json(producto);
 });
 
+app.post('/productos', (req, res) => {
+  const { nombre, precio, descripcion, disponible } = req.body;
+
+  if (!nombre) {
+    return res.status(400).json({ error: 'El nombre es obligatorio' });
+  }
+  if (typeof precio !== 'number' || precio <= 0) {
+    return res.status(400).json({ error: 'El precio debe ser un número positivo' });
+  }
+  if (!descripcion || descripcion.length < 10) {
+    return res.status(400).json({ error: 'La descripción debe tener al menos 10 caracteres' });
+  }
+
+  const productos = getProductos();
+  const nuevoProducto = {
+    id: productos.length > 0 ? productos[productos.length - 1].id + 1 : 1,
+    nombre,
+    precio,
+    descripcion,
+    disponible: Boolean(disponible),
+    fecha_ingreso: new Date().toISOString()
+  };
+
+  productos.push(nuevoProducto);
+  saveProductos(productos);
+
+  res.status(201).json(nuevoProducto);
+});
+
+
 
 app.listen(PORT, () => {
   console.log(`Servidor escuchando en http://localhost:${PORT}`);
