@@ -1,0 +1,5 @@
+### Obtener todos los productos
+GET http://localhost:3000/productos
+
+### Obtener un producto por ID
+GET http://localhost:3000/productos/1
