@@ -1,12 +1,19 @@
 import express from 'express';
 import {
   obtenerCategorias,
-  // otras funciones
+  obtenerCategoriaPorId,
+  crearCategoria,
+  actualizarCategoria,
+  eliminarCategoria
 } from '../controllers/categoriasController.js';
 
 const router = express.Router();
 
 router.get('/', obtenerCategorias);
-// Agrega los demás endpoints
+router.get('/:id', obtenerCategoriaPorId);
+router.post('/', crearCategoria);
+router.put('/:id', actualizarCategoria);
+router.delete('/:id', eliminarCategoria);
 
 export default router;
+
