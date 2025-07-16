@@ -1,3 +1,6 @@
+import categoriasRoutes from './routes/categorias.js';
+app.use('/categorias', categoriasRoutes);
+
 
 const express = require('express');
 const fs = require('fs');
